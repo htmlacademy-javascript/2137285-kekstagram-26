@@ -1,3 +1,4 @@
-import {generateArrayPhoto} from './data.js';
+import {updateMiniatures} from './miniature.js';
 
-generateArrayPhoto(25);
+updateMiniatures();
+
