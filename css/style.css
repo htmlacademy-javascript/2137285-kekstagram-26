@@ -823,6 +823,10 @@ main {
   margin-right: 15px;
 }
 
+img.social__picture{
+  width:35px;
+  height:35px;
+}
 .social__caption {
   margin: 0;
   margin-right: 15px;
