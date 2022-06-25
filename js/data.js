@@ -1,5 +1,5 @@
 import {getRandomNumber,controlLenghtString} from './util.js';
-import {ARRAY_COMMENTS, SURNAMES} from './const.js';
+import {COMMENTS,DESCRIPTION,SURNAMES} from './const.js';
 
 controlLenghtString('тест');
 
@@ -32,14 +32,14 @@ const generateArrayComment = function(count){
   return Array.from({length: count}, crateComment);
 };
 
-//Функция формирующая комментарий в виде произвольного числа строк из массива ARRAY_COMMENTS
+//Функция формирующая комментарий в виде произвольного числа строк из массива COMMENTS
 function generateMessageString(count){
   let messageString = '';
   const uniqComment = [];
   for(let i = 1; i<=count; i++){
-    const commentId = getRandomNumber(0,ARRAY_COMMENTS.length-1);
+    const commentId = getRandomNumber(0,COMMENTS.length-1);
     if(!uniqComment.includes(commentId)){
-      messageString += ARRAY_COMMENTS[commentId];
+      messageString += COMMENTS[commentId];
       messageString += (i < count) ? '\n': '';
     }else
     {i--;}
@@ -53,7 +53,7 @@ const generatePhoto = function(){
   return {
     id : uniqId,
     url : `photos/${uniqId}.jpg`,
-    description: `Это описание фотографии под номером ${uniqId}`,
+    description: DESCRIPTION[getRandomNumber(0,10)],
     likes: getRandomNumber(15,200),
     comments: generateArrayComment(getRandomNumber(1,5))
   };

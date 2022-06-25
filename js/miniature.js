@@ -1,5 +1,5 @@
 import { generateArrayPhoto } from './data.js';
-import { fullSizeMode } from './fullSizeMode.js';
+import { renderModal } from './modal.js';
 
 //Скрипт формирующий миниатюры фотографий других пользователей
 function updateMiniatures() {
@@ -15,7 +15,7 @@ function updateMiniatures() {
     photoElement.querySelector('.picture__img').src = url;
     photoElement.querySelector('.picture__likes').textContent = likes;
     photoElement.querySelector('.picture__comments').textContent = comments.length;
-    fullSizeMode(photoElement, id, description, comments, likes, url);
+    renderModal(photoElement, description, comments, likes, url);
     arrayPhotoFragment.appendChild(photoElement, id, description, comments, likes, url);
   });
 
