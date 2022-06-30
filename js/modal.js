@@ -1,6 +1,24 @@
+const bigPicture = document.querySelector('.big-picture');
+
+function onPictureKeydown(evt){
+  if (evt.key === 'Escape') {
+    bigPicture.classList.add('hidden');
+    document.activeElement.blur();
+    document.querySelector('body').classList.remove('modal-open');
+    document.removeEventListener('keydown',  onPictureKeydown);
+    bigPicture.querySelector('#picture-cancel').removeEventListener('click',onCloseClick);
+  }
+}
+
+function onCloseClick(){
+  bigPicture.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+  document.removeEventListener('keydown',  onPictureKeydown);
+  bigPicture.querySelector('#picture-cancel').removeEventListener('click',onCloseClick);
+}
+
 //Скрипт для отображения фотографий в полноразмерном режиме
-function fullSizeMode(photoElement, id, description, comments, likes, url) {
-  const bigPicture = document.querySelector('.big-picture');
+function renderModal(photoElement, description, comments, likes, url) {
   photoElement.addEventListener('click', () => {
     bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
     bigPicture.querySelector('.likes-count').textContent = likes;
@@ -11,27 +29,15 @@ function fullSizeMode(photoElement, id, description, comments, likes, url) {
     bigPicture.querySelector('.comments-loader').classList.add('hidden');
     bigPicture.classList.remove('hidden');
     document.querySelector('body').classList.add('modal-open');
+    document.addEventListener('keydown',  onPictureKeydown);
+    bigPicture.querySelector('#picture-cancel').addEventListener('click',onCloseClick);
   });
-
-  document.addEventListener('keydown',  (evt)=>{
-    if (evt.key === 'Escape') {
-      document.querySelector('.big-picture').classList.add('hidden');
-      document.activeElement.blur();
-      document.querySelector('body').classList.remove('modal-open');
-    }
-  });
-
-  document.querySelector('.big-picture').querySelector('#picture-cancel').addEventListener('click', () => {
-    document.querySelector('.big-picture').classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
-  });
-
 }
 
 //Скрипт добавляет сгенерированные комментарии
 function makeComment(comments) {
   const existComment = document.querySelector('.social__comments');
-  existComment.querySelectorAll('*').forEach((n) => n.remove());
+  existComment.querySelectorAll('li').forEach((n) => n.remove());
   comments.forEach((comment) => {
     const commentContainer = document.createElement('li');
     commentContainer.classList.add('social__comment');
@@ -48,4 +54,4 @@ function makeComment(comments) {
   });
 }
 
-export { fullSizeMode };
+export { renderModal };
