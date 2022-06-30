@@ -55,7 +55,7 @@ const generatePhoto = function(){
     url : `photos/${uniqId}.jpg`,
     description: DESCRIPTION[getRandomNumber(0,10)],
     likes: getRandomNumber(15,200),
-    comments: generateArrayComment(getRandomNumber(1,5))
+    comments: generateArrayComment(getRandomNumber(1,16))//module8-task2 Было 5
   };
 };
 
