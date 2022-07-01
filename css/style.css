@@ -529,24 +529,37 @@ main {
 
 .effect-level {
   position: absolute;
-  bottom: 10px;
+  bottom: 9px;
   left: 50%;
 
+  padding: 7px 11px 0;
+
   width: 495px;
-  height: 33px;
+  height: 34px;
 
   font-size: 12px;
-  line-height: 42px;
   text-align: center;
   color: #ffffff;
   white-space: nowrap;
 
   background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 33px;
+  border-radius: 34px;
 
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
+}
+
+.effect-level .noUi-target {
+  border-radius: 16px;
+}
+
+.effect-level .noUi-connects {
+  border-radius: 13px;
+}
+
+.effect-level .noUi-connect {
+  background: #ffe753;
 }
 
 .effect-level__value {
@@ -683,8 +696,6 @@ main {
   border-radius: 5px;
 }
 
-
-
 .text__description {
   width: 450px;
   height: 100px;
@@ -697,25 +708,6 @@ main {
   color: #000000;
 
   border-radius: 5px;
-}
-
-.pristine-error{
-  color: #ff5353;
-  text-transform: none;
-  font-weight: bold;
-}
-
-.has-success .text__hashtags:focus, 
-.has-success .text__description:focus
-{
-  margin-bottom: 20px;
-  border:4px solid #1cf804;
-}
-
-.has-danger .text__hashtags:focus,
-.has-danger .text__hashtags{
-  margin-bottom: -1px;
-  border:4px solid #ff5353;
 }
 
 
@@ -844,10 +836,6 @@ main {
   margin-right: 15px;
 }
 
-img.social__picture{
-  width:35px;
-  height:35px;
-}
 .social__caption {
   margin: 0;
   margin-right: 15px;
@@ -1420,4 +1408,3 @@ img.social__picture{
 .hidden {
   display: none;
 }
-
