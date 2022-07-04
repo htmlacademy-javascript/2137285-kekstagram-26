@@ -1,4 +1,5 @@
 const form = document.querySelector('.img-upload__form');
+const submitButton = document.querySelector('.img-upload__submit');
 //Скрипт валидации формы ввода хештега библиотекой Pristine
 function validateData(){
   const pristine = new Pristine(form,{
@@ -21,7 +22,8 @@ function validateData(){
 
 let errorMessages = '';
 function validateHashtag(value) {
-  return value.split(' ').filter(Boolean).map((item, _, arr) => {
+  const isValid = value.split(' ').filter(Boolean).map((item, _, arr) => {
+    const upperArray = arr.map((el)=>el.toUpperCase());
     if(arr.length > 5) {
       errorMessages = 'Хештегов не может быть больше 5';
       return false;}
@@ -34,14 +36,16 @@ function validateHashtag(value) {
       errorMessages = 'Cтрока после решётки должна состоять из букв или чисел';
       return false;}
 
-    if([...new Set(arr.map((el)=>el.toUpperCase()))].length !== arr.map((el)=>el.toUpperCase()).length){
-      errorMessages = 'Хэш-теги нечувствительны к регистру, удалите дубли';
+    if([...new Set(upperArray)].length !== upperArray.length){
+      errorMessages = 'Хэш-теги должны быть уникальными, удалите дубли';
       return false;
     }
-
     return true;
-
   }).every(Boolean);
+
+  submitButton.disabled = !isValid;
+
+  return isValid;
 }
 
 

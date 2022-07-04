@@ -4,7 +4,8 @@ const scaleElements = document.querySelector('.img-upload__scale');
 const previewImg = document.querySelector('.img-upload__preview');
 const scaleControl = document.querySelector('.scale__control--value');
 const effectElements = document.querySelector('.effects__list');
-const sliderElement = document.getElementById('slider');
+const sliderElement = document.querySelector('.effect-level__slider');
+const effectValueElement = document.querySelector('.effect-level__value');
 
 function onLoadPhoto(){
   inputFile.addEventListener('change', onAddPictureClick);
@@ -18,13 +19,18 @@ function onAddPictureClick(event) {
   scaleControl.value = '100%';
   previewImg.getElementsByTagName('img')[0].style.transform = 'scale(1)';
   document.querySelector('.img-upload__overlay .img-upload__preview img').src = URL.createObjectURL(event.target.files[0]);
+  effectElements.querySelectorAll('.effects__preview').forEach((el) => {
+    el.style.backgroundImage = `url(${URL.createObjectURL(event.target.files[0])})`;
+  });
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
   document.body.classList.add('modal-open');
+  resetEffects();
 }
 
 function onCanselClick(){
   document.querySelector('.img-upload__overlay').classList.add('hidden');
   document.body.classList.remove('modal-open');
+  resetEffects();
   inputFile.value=null;
 }
 
@@ -57,40 +63,77 @@ function onScalClick(event){
   }
 }
 
-
+//Добавление эффекта к загруженной фотографии
 function onEffectClick(event){
   const effectElement = event.target.classList;
   switch(true){
     case effectElement.contains('effects__preview--none'):
       previewImg.getElementsByTagName('img')[0].className = '';
+      resetEffects();
       break;
     case effectElement.contains('effects__preview--chrome'):
       previewImg.getElementsByTagName('img')[0].className = 'effects__preview--chrome';
+      updateUISlider(0, 1, 0.1, 'grayscale');
       break;
     case effectElement.contains('effects__preview--sepia'):
       previewImg.getElementsByTagName('img')[0].className = 'effects__preview--sepia';
+      updateUISlider(0, 1, 0.1, 'sepia');
       break;
     case effectElement.contains('effects__preview--marvin'):
       previewImg.getElementsByTagName('img')[0].className = 'effects__preview--marvin';
+      updateUISlider(0, 100, 1, 'invert');
       break;
     case effectElement.contains('effects__preview--phobos'):
       previewImg.getElementsByTagName('img')[0].className = 'effects__preview--phobos';
+      updateUISlider(0, 3, 0.1, 'blur');
       break;
     case effectElement.contains('effects__preview--heat'):
       previewImg.getElementsByTagName('img')[0].className = 'effects__preview--heat';
+      updateUISlider(1, 3, 0.1, 'brightness');
       break;
 
   }
 }
 
-noUiSlider.create(sliderElement, {
-  range: {
-    'min': 0,
-    'max': 100,
-  },
-  start: [20,80],
-});
+//Изменение слайдера под текущий эффект
+function updateUISlider (min, max, step, effect){
+  resetEffects();
 
+  if(effect !== 'none'){
+    noUiSlider.create(sliderElement, {
+      range: {
+        min,
+        max
+      },
+      step,
+      start:max,
+      direction: 'rtl',
+      connect: 'upper'
+    });
+
+    sliderElement.noUiSlider.on('update', () => {
+      let measure = '';
+
+      switch(effect){
+        case 'invert': measure = '%';
+          break;
+        case 'blur': measure = 'px';
+          break;
+        default:
+          break;
+      }
+      document.querySelector('.img-upload__preview img').style.filter = `${effect}(${sliderElement.noUiSlider.get()}${measure})`;
+      effectValueElement.value = `${effect}(${sliderElement.noUiSlider.get()}${measure})`;
+    });
+  }
+}
+
+function resetEffects(){
+  document.querySelector('.img-upload__preview img').style.filter = 'none';
+  if(sliderElement.noUiSlider !== undefined){
+    sliderElement.noUiSlider.destroy();
+  }
+}
 
 export { onLoadPhoto };
 
