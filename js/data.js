@@ -25,7 +25,7 @@ const generateArrayComment = function(count){
     return {
       id: queryId(26,1000),
       avatar: `img/avatar-${getRandomNumber(1,6)}.svg`,
-      message: generateMessageString(getRandomNumber(1,2)),
+      message: generateMessageString(1),
       name: SURNAMES[getRandomNumber(0,SURNAMES.length)],
     };
   }

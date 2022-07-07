@@ -16,15 +16,17 @@ function onLoadPhoto(){
 }
 
 function onAddPictureClick(event) {
-  scaleControl.value = '100%';
-  previewImg.getElementsByTagName('img')[0].style.transform = 'scale(1)';
-  document.querySelector('.img-upload__overlay .img-upload__preview img').src = URL.createObjectURL(event.target.files[0]);
-  effectElements.querySelectorAll('.effects__preview').forEach((el) => {
-    el.style.backgroundImage = `url(${URL.createObjectURL(event.target.files[0])})`;
-  });
-  document.querySelector('.img-upload__overlay').classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  resetEffects();
+  if(event.target.files.lenght > 0){
+    scaleControl.value = '100%';
+    previewImg.getElementsByTagName('img')[0].style.transform = 'scale(1)';
+    document.querySelector('.img-upload__overlay .img-upload__preview img').src = URL.createObjectURL(event.target.files[0]);
+    effectElements.querySelectorAll('.effects__preview').forEach((el) => {
+      el.style.backgroundImage = `url(${URL.createObjectURL(event.target.files[0])})`;
+    });
+    document.querySelector('.img-upload__overlay').classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    resetEffects();
+  }
 }
 
 function onCanselClick(){
@@ -41,6 +43,7 @@ function onLoadPictureKeydown(evt){
     inputFile.value=null;
   }
 }
+
 
 //Изменение масштаба изображения
 function onScalClick(event){

@@ -1,3 +1,6 @@
+import { sendData } from './api.js';
+import { generateMessageElement } from './util.js';
+
 const form = document.querySelector('.img-upload__form');
 const submitButton = document.querySelector('.img-upload__submit');
 //Скрипт валидации формы ввода хештега библиотекой Pristine
@@ -13,9 +16,23 @@ function validateData(){
   pristine.addValidator(inputHashTag, validateHashtag, getHashTagErrorMessage);
   form.addEventListener('submit', onFileSubmit);
   function onFileSubmit(evt) {
+    evt.preventDefault();
     const isValid = pristine.validate();
-    if(!isValid){
-      evt.preventDefault();
+    if(isValid){
+      blockSubmitButton();
+      sendData(
+        () => {
+          document.querySelector('.img-upload__overlay').classList.add('hidden');
+          generateMessageElement('success');
+          unblockSubmitButton();
+        },
+        () => {
+          // document.querySelector('.img-upload__overlay').classList.add('hidden');
+          generateMessageElement('error');
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
     }
   }
 }
@@ -48,6 +65,16 @@ function validateHashtag(value) {
   return isValid;
 }
 
+
+function blockSubmitButton () {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Отправка...';
+}
+
+function unblockSubmitButton () {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+}
 
 function getHashTagErrorMessage () {
   return errorMessages;
