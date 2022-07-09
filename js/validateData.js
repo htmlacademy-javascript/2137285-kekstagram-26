@@ -3,6 +3,8 @@ import { generateMessageElement } from './util.js';
 
 const form = document.querySelector('.img-upload__form');
 const submitButton = document.querySelector('.img-upload__submit');
+
+
 //Скрипт валидации формы ввода хештега библиотекой Pristine
 function validateData(){
   const pristine = new Pristine(form,{
@@ -27,7 +29,7 @@ function validateData(){
           unblockSubmitButton();
         },
         () => {
-          // document.querySelector('.img-upload__overlay').classList.add('hidden');
+          document.querySelector('.img-upload__overlay').classList.add('hidden');
           generateMessageElement('error');
           unblockSubmitButton();
         },

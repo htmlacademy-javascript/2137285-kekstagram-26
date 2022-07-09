@@ -1,6 +1,6 @@
 import { showErrorMessage } from './util.js';
 
-const getData = (onSuccess) => {
+function getData (onSuccess) {
   fetch('https://26.javascript.pages.academy/kekstagram/data')
     .then((response) =>{
       if(response.ok){
@@ -17,7 +17,7 @@ const getData = (onSuccess) => {
     });
 };
 
-const sendData = (onSuccess, onFail, body) => {
+function sendData (onSuccess, onFail, body){
   fetch(
     'https://26.javascript.pages.academy/kekstagram',
     {
