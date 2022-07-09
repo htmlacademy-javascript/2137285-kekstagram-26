@@ -15,7 +15,7 @@ function getData (onSuccess) {
     .then((arrayPhotoData) => {
       onSuccess(arrayPhotoData);
     });
-};
+}
 
 function sendData (onSuccess, onFail, body){
   fetch(
@@ -35,7 +35,7 @@ function sendData (onSuccess, onFail, body){
     .catch(() => {
       onFail();
     });
-};
+}
 
 
 export { getData,sendData };
