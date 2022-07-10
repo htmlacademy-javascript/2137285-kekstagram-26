@@ -9,11 +9,11 @@ function getData (onSuccess) {
         showErrorMessage('Ошибка сервера');
       }
     })
-    .catch(() => {
-      showErrorMessage('Не удалось получить данные с сервера');
-    })
     .then((arrayPhotoData) => {
       onSuccess(arrayPhotoData);
+    })
+    .catch(() => {
+      showErrorMessage('Не удалось получить данные с сервера');
     });
 }
 
