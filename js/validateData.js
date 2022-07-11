@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { generateMessageElement } from './util.js';
+import { generateMessageElement } from './messageGenerator.js';
 
 const form = document.querySelector('.img-upload__form');
 const submitButton = document.querySelector('.img-upload__submit');
