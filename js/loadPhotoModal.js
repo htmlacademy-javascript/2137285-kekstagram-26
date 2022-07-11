@@ -42,6 +42,7 @@ function onLoadPictureKeydown(evt){
   }
 }
 
+
 //Изменение масштаба изображения
 function onScalClick(event){
   const scaleElement = event.target.classList;

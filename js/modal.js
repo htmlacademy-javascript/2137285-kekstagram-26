@@ -28,9 +28,13 @@ function renderModal(photoElement, description, comments, likes, url) {
   photoElement.addEventListener('click', () => {
     bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
     bigPicture.querySelector('.likes-count').textContent = likes;
-    bigPicture.querySelector('.social__comment-count').textContent=`5 из ${comments.length} коментариев`;
+    const countComments = (comments.length < 5) ? comments.length : '5';
+    bigPicture.querySelector('.social__comment-count').textContent=`${countComments} из ${comments.length} коментариев`;
     bigPicture.querySelector('.social__caption').textContent = description;
     makeComment(comments);
+    if(document.querySelector('.social__comments').querySelectorAll('.hidden').length===0){
+      commentLoader.classList.add('hidden');
+    }
     bigPicture.classList.remove('hidden');
     document.querySelector('body').classList.add('modal-open');
     document.addEventListener('keydown',  onPictureKeydown);
