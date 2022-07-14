@@ -18,10 +18,7 @@ function onCloseMessageClick(){
   } else {
     document.querySelector('.img-upload__overlay').classList.remove('hidden');
   }
-  document.querySelector(`.${template}__button`).removeEventListener('click',  onCloseMessageClick);
-  document.removeEventListener('keydown',  onMessageKeydownclick);
-  document.removeEventListener('click',  onHandleclick);
-  document.querySelector(`.${template}`).remove();
+  removeListeners();
 }
 
 function onMessageKeydownclick(evt){
@@ -31,10 +28,7 @@ function onMessageKeydownclick(evt){
     } else {
       document.querySelector('.img-upload__overlay').classList.remove('hidden');
     }
-    document.querySelector(`.${template}__button`).removeEventListener('click',  onCloseMessageClick);
-    document.removeEventListener('keydown',  onMessageKeydownclick);
-    document.removeEventListener('click',  onHandleclick);
-    document.querySelector(`.${template}`).remove();
+    removeListeners();
   }
 }
 
@@ -46,10 +40,7 @@ function onHandleclick(evt){
     } else {
       document.querySelector('.img-upload__overlay').classList.remove('hidden');
     }
-    document.querySelector(`.${template}__button`).removeEventListener('click',  onCloseMessageClick);
-    document.removeEventListener('keydown',  onMessageKeydownclick);
-    document.removeEventListener('click',  onHandleclick);
-    document.querySelector(`.${template}`).remove();
+    removeListeners();
   }
 }
 
@@ -61,6 +52,13 @@ function makeDafaultProp(){
   const inputComment = form.querySelector('.text__description');
   inputHashTag.value = null;
   inputComment.value = null;
+}
+
+function removeListeners () {
+  document.querySelector(`.${template}__button`).removeEventListener('click',  onCloseMessageClick);
+  document.removeEventListener('keydown',  onMessageKeydownclick);
+  document.removeEventListener('click',  onHandleclick);
+  document.querySelector(`.${template}`).remove();
 }
 
 export {generateMessageElement};
