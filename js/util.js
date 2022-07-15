@@ -18,26 +18,23 @@ function showErrorMessage(text){
   },3000);
 }
 
-// Функция взята из интернета и доработана
-// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
+function getRandomPhotoClick (arrayPhoto) {
+  return arrayPhoto.slice().sort(() => 0.5 - Math.random()).slice(0, 10);//Алгоритм взял с https://overcoder.net/q/64943/%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C-n-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2-%D1%81%D0%BB%D1%83%D1%87%D0%B0%D0%B9%D0%BD%D0%BE-%D0%B8%D0%B7-%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D0%B0
+}
 
+function getDiscussedPhotoClick (arrayPhoto) {
+  return arrayPhoto.slice().sort((a, b) => b.comments.length - a.comments.length);
+}
+
+
+// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
 function debounce (callback, timeoutDelay = 500) {
-  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
-  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
-  console.log('debounce',timeoutDelay);
   let timeoutId;
   return (...rest) => {
-    // Перед каждым новым вызовом удаляем предыдущий таймаут,
-    // чтобы они не накапливались
     clearTimeout(timeoutId);
-
-    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-
-    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
-    // пока действие совершается чаще, чем переданная задержка timeoutDelay
   };
 }
 
 
-export {getRandomNumber, controlLenghtString, showErrorMessage, debounce};
+export {getRandomNumber, controlLenghtString, showErrorMessage, debounce, getRandomPhotoClick, getDiscussedPhotoClick};
