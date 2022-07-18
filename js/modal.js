@@ -1,7 +1,6 @@
 const bigPicture = document.querySelector('.big-picture');
 const commentLoader = bigPicture.querySelector('.comments-loader');
 
-
 function onPictureKeydown(evt){
   if (evt.key === 'Escape') {
     bigPicture.classList.add('hidden');
@@ -23,7 +22,6 @@ function onCloseModalClick(){
   commentLoader.removeEventListener('click', onLoadCommentsClick);
 }
 
-//Скрипт для отображения фотографий в полноразмерном режиме
 function renderModal(photoElement, description, comments, likes, url) {
   photoElement.addEventListener('click', () => {
     bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
@@ -42,7 +40,6 @@ function renderModal(photoElement, description, comments, likes, url) {
   });
 }
 
-//Скрипт добавляет сгенерированные комментарии
 function makeComment(comments) {
   const existComment = document.querySelector('.social__comments');
   existComment.querySelectorAll('li').forEach((el) => el.remove());
@@ -66,7 +63,6 @@ function makeComment(comments) {
   commentLoader.addEventListener('click',onLoadCommentsClick);
 }
 
-//Функция допзагрузки комментариев
 function onLoadCommentsClick (){
   const comments = document.querySelector('.social__comments');
   comments.querySelectorAll('.hidden').forEach((el,index) => {

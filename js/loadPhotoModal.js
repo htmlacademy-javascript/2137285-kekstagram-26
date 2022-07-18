@@ -1,3 +1,6 @@
+import { pristine, unblockSubmitButton } from './validateData.js';
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const inputFile = document.querySelector('#upload-file');
 const canselElement = document.querySelector('#upload-cancel');
 const scaleElements = document.querySelector('.img-upload__scale');
@@ -6,8 +9,10 @@ const scaleControl = document.querySelector('.scale__control--value');
 const effectElements = document.querySelector('.effects__list');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectValueElement = document.querySelector('.effect-level__value');
+const form = document.querySelector('.img-upload__form');
 
 function onLoadPhoto(){
+  document.querySelector('.img-upload__effect-level').classList.add('hidden');
   inputFile.addEventListener('change', onAddPictureClick);
   canselElement.addEventListener('click', onCanselClick);
   document.addEventListener('keydown',  onLoadPictureKeydown);
@@ -15,37 +20,40 @@ function onLoadPhoto(){
   effectElements.addEventListener('click',  onEffectClick);
 }
 
-function onAddPictureClick(event) {
+function onAddPictureClick(evt) {
   scaleControl.value = '100%';
   previewImg.getElementsByTagName('img')[0].style.transform = 'scale(1)';
-  document.querySelector('.img-upload__overlay .img-upload__preview img').src = URL.createObjectURL(event.target.files[0]);
-  effectElements.querySelectorAll('.effects__preview').forEach((el) => {
-    el.style.backgroundImage = `url(${URL.createObjectURL(event.target.files[0])})`;
-  });
+  const matches = FILE_TYPES.some((el) => evt.target.files[0].name.toLowerCase().endsWith(el));
+  if(matches){
+    document.querySelector('.img-upload__overlay .img-upload__preview img').src = URL.createObjectURL(evt.target.files[0]);
+    effectElements.querySelectorAll('.effects__preview').forEach((el) => {
+      el.style.backgroundImage = `url(${URL.createObjectURL(evt.target.files[0])})`;
+    });
+  }
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
   document.body.classList.add('modal-open');
   resetEffects();
+  form.querySelector('.text__hashtags').value = '';
+  form.querySelector('.text__description').value = '';
 }
 
 function onCanselClick(){
   document.querySelector('.img-upload__overlay').classList.add('hidden');
   document.body.classList.remove('modal-open');
-  resetEffects();
-  inputFile.value=null;
+  inputFile.value = null;
 }
 
 function onLoadPictureKeydown(evt){
   if (evt.key === 'Escape' && (document.activeElement !== document.querySelector('.text__hashtags') && document.activeElement !== document.querySelector('.text__description'))) {
     document.querySelector('.img-upload__overlay').classList.add('hidden');
     document.body.classList.remove('modal-open');
-    inputFile.value=null;
+    inputFile.value = null;
   }
 }
 
-
 //Изменение масштаба изображения
-function onScalClick(event){
-  const scaleElement = event.target.classList;
+function onScalClick(evt){
+  const scaleElement = evt.target.classList;
   switch(true){
     case scaleElement.contains('scale__control--smaller'):
       if(parseInt(scaleControl.value, 10 ) > 25) {
@@ -65,8 +73,8 @@ function onScalClick(event){
 }
 
 //Добавление эффекта к загруженной фотографии
-function onEffectClick(event){
-  const effectElement = event.target.classList;
+function onEffectClick(evt){
+  const effectElement = evt.target.classList;
   switch(true){
     case effectElement.contains('effects__preview--none'):
       previewImg.getElementsByTagName('img')[0].className = '';
@@ -99,8 +107,8 @@ function onEffectClick(event){
 //Изменение слайдера под текущий эффект
 function updateUISlider (min, max, step, effect){
   resetEffects();
-
   if(effect !== 'none'){
+    document.querySelector('.img-upload__effect-level').classList.remove('hidden');
     noUiSlider.create(sliderElement, {
       range: {
         min,
@@ -111,10 +119,8 @@ function updateUISlider (min, max, step, effect){
       direction: 'rtl',
       connect: 'upper'
     });
-
     sliderElement.noUiSlider.on('update', () => {
       let measure = '';
-
       switch(effect){
         case 'invert': measure = '%';
           break;
@@ -130,11 +136,16 @@ function updateUISlider (min, max, step, effect){
 }
 
 function resetEffects(){
+  document.querySelector('.img-upload__effect-level').classList.add('hidden');
   document.querySelector('.img-upload__preview img').style.filter = 'none';
+  document.querySelector('.effects__list #effect-none').checked = true;
+  pristine.reset();
+  unblockSubmitButton();
   if(sliderElement.noUiSlider !== undefined){
     sliderElement.noUiSlider.destroy();
   }
 }
+
 
 export { onLoadPhoto };
 
