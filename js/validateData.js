@@ -6,7 +6,6 @@ const submitButton = document.querySelector('.img-upload__submit');
 let pristine;
 let errorMessage = '';
 
-//Скрипт валидации формы ввода хештега библиотекой Pristine
 function validateData(){
   pristine = new Pristine(form,{
     classTo: 'img-upload__field-wrapper',
@@ -43,11 +42,11 @@ function validateHashtag(value) {
   const isValid = value.split(' ').filter(Boolean).map((item, _, arr) => {
     const upperArray = arr.map((el)=>el.toUpperCase());
     if(arr.length > 5) {
-      errorMessage = 'Хештегов не может быть больше 5';
+      errorMessage = 'Хэш-тегов не может быть более 5';
       return false;}
 
     if(!item.startsWith('#')) {
-      errorMessage = 'Хештег должен начинаться с #';
+      errorMessage = 'Хэш-тег должен начинаться с #';
       return false;}
 
     if(!(new RegExp(/^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/).test(item))) {

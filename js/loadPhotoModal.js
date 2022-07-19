@@ -1,4 +1,5 @@
 import { pristine, unblockSubmitButton } from './validateData.js';
+import { showErrorMessage } from './util.js';
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const inputFile = document.querySelector('#upload-file');
@@ -29,12 +30,14 @@ function onAddPictureClick(evt) {
     effectElements.querySelectorAll('.effects__preview').forEach((el) => {
       el.style.backgroundImage = `url(${URL.createObjectURL(evt.target.files[0])})`;
     });
+    document.querySelector('.img-upload__overlay').classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    resetEffects();
+    form.querySelector('.text__hashtags').value = '';
+    form.querySelector('.text__description').value = '';
+  } else {
+    showErrorMessage('Не поддерживаемый формат файла');
   }
-  document.querySelector('.img-upload__overlay').classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  resetEffects();
-  form.querySelector('.text__hashtags').value = '';
-  form.querySelector('.text__description').value = '';
 }
 
 function onCanselClick(){
