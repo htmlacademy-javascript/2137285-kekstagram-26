@@ -54,7 +54,6 @@ function onLoadPictureKeydown(evt){
   }
 }
 
-//Изменение масштаба изображения
 function onScalClick(evt){
   const scaleElement = evt.target.classList;
   switch(true){
@@ -75,7 +74,6 @@ function onScalClick(evt){
   }
 }
 
-//Добавление эффекта к загруженной фотографии
 function onEffectClick(evt){
   const effectElement = evt.target.classList;
   switch(true){
@@ -107,7 +105,6 @@ function onEffectClick(evt){
   }
 }
 
-//Изменение слайдера под текущий эффект
 function updateUISlider (min, max, step, effect){
   resetEffects();
   if(effect !== 'none'){
