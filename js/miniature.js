@@ -1,17 +1,14 @@
 import { renderModal } from './modal.js';
-import {getData} from './api.js';
-import {showFilters} from './filters.js';
+import { getData } from './api.js';
+import { showFilters } from './filters.js';
 import { debounce } from './util.js';
 
-
-//Скрипт формирующий миниатюры фотографий других пользователей
 function updateMiniatures() {
   getData((arrayPhoto) => {
     renderPhotoElements(arrayPhoto);
     showFilters(arrayPhoto, debounce(renderPhotoElements));
   });
 }
-
 
 function renderPhotoElements(arrayPhoto){
   document.querySelectorAll('.pictures .picture').forEach((el) => el.remove());

@@ -1,4 +1,6 @@
 let template = '';
+const inputFile = document.querySelector('#upload-file');
+
 function generateMessageElement (templateMessageElement){
   const templateElement = document.querySelector(`#${templateMessageElement}`).content.querySelector(`.${templateMessageElement}`);
   const messageElement = templateElement.cloneNode(true);
@@ -9,8 +11,6 @@ function generateMessageElement (templateMessageElement){
   document.body.append(messageElement);
 }
 
-
-const inputFile = document.querySelector('#upload-file');
 function onCloseMessageClick(){
   if(template === 'success'){
     inputFile.value = null;
@@ -44,7 +44,6 @@ function onHandleclick(evt){
   }
 }
 
-
 function makeDafaultProp(){
   document.querySelector('#effect-none').checked = true;
   const form = document.querySelector('.img-upload__form');
@@ -61,4 +60,5 @@ function removeListeners () {
   document.querySelector(`.${template}`).remove();
 }
 
-export {generateMessageElement};
+
+export { generateMessageElement };
