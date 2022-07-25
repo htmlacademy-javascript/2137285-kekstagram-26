@@ -710,6 +710,29 @@ main {
   border-radius: 5px;
 }
 
+.text__hashtags:focus-visible,
+.text__description:focus-visible {
+  outline: none;
+  border: none;
+}
+
+.pristine-error {
+  color: #ff5353;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.has-success .text__hashtags:focus,
+.has-success .text__description:focus {
+  border: 4px solid #1cf804;
+  outline: none;
+}
+
+.has-danger .text__hashtags:focus,
+.has-danger .text__hashtags {
+  margin-bottom: 0;
+  border: 4px solid #ff5353;
+}
 
 /**
  * Кнопка для отправки изображения
@@ -1208,7 +1231,7 @@ main {
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 2;
 
   background-color: rgba(0, 0, 0, 0.8);
 }
@@ -1413,7 +1436,7 @@ main {
 
 /* Стили ерора тостера
    ========================================================================== */
-   #toast{
+   .toast{
     position:fixed;
     z-index:10 !important;
     top:0;
@@ -1431,7 +1454,7 @@ main {
     text-transform: none;
   }
   
-  #toast.show{
+  .toast.show{
     visibility:visible;
     animation:fadeInOut 5s;
   }
