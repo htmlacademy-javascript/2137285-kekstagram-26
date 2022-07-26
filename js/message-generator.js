@@ -1,4 +1,3 @@
-let template = '';
 const inputFile = document.querySelector('#upload-file');
 
 const makeDafaultProp = () => {
@@ -10,14 +9,14 @@ const makeDafaultProp = () => {
   inputComment.value = null;
 };
 
-const onCloseMessageClick = () => {
-  if(template === 'success'){
+const onCloseMessageClick = (status) => {
+  if(status === 'success'){
     inputFile.value = null;
     makeDafaultProp();
   } else {
     document.querySelector('.img-upload__overlay').classList.remove('hidden');
   }
-  document.querySelector(`.${template}`).remove();
+  document.querySelector(`.${status}`).remove();
 };
 
 const onMessageKeydownClick = (status, evt) => {
@@ -32,7 +31,7 @@ const onMessageKeydownClick = (status, evt) => {
 };
 
 const onHandleClick = (status, evt) => {
-  if (!document.querySelector(`.${status}__inner`).contains(evt.target)) {
+  if (document.querySelector(`.${status}__inner`) && !document.querySelector(`.${status}__inner`).contains(evt.target)) {
     if(status === 'success'){
       inputFile.value = null;
       makeDafaultProp();
@@ -43,13 +42,12 @@ const onHandleClick = (status, evt) => {
   }
 };
 
-const generateMessageElement = (templateMessageElement) => {
-  const templateElement = document.querySelector(`#${templateMessageElement}`).content.querySelector(`.${templateMessageElement}`);
+const generateMessageElement = (statusMessage) => {
+  const templateElement = document.querySelector(`#${statusMessage}`).content.querySelector(`.${statusMessage}`);
   const messageElement = templateElement.cloneNode(true);
-  template = templateMessageElement;
-  messageElement.querySelector(`.${templateMessageElement}__button`).addEventListener('click',  onCloseMessageClick, {once : true});
-  document.addEventListener('keydown',  onMessageKeydownClick.bind(this, templateMessageElement), {once : true});
-  document.addEventListener('click',  onHandleClick.bind(this, templateMessageElement), {once : true});
+  messageElement.querySelector(`.${statusMessage}__button`).addEventListener('click',  onCloseMessageClick.bind(this, statusMessage), {once : true});
+  document.addEventListener('keydown',  onMessageKeydownClick.bind(this, statusMessage), {once : true});
+  document.addEventListener('click',  onHandleClick.bind(this, statusMessage), {once : true});
   document.body.append(messageElement);
 };
 

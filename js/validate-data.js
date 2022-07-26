@@ -59,7 +59,7 @@ const validateData = () => {
   pristine.addValidator(inputHashTag, validateHashtag, getHashTagErrorMessage);
   const onFileSubmit = (evt) => {
     evt.preventDefault();
-    const isValid = pristine.validate();
+    const isValid = pristine.validate(inputHashTag);
     if(isValid){
       blockSubmitButton();
       sendData(

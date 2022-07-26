@@ -12,7 +12,7 @@ const onLoadCommentsClick = () => {
   });
   const countComments = comments.children.length - comments.querySelectorAll('.hidden').length;
   bigPicture.querySelector('.social__comment-count').textContent=`${countComments} из ${comments.children.length} коментариев`;
-  if(comments.querySelectorAll('.hidden').length===0){
+  if(comments.querySelectorAll('.hidden').length === 0){
     commentLoader.classList.add('hidden');
   }
 };

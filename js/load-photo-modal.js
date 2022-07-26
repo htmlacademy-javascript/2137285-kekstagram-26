@@ -4,10 +4,10 @@ import { showErrorMessage } from './util.js';
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const inputFile = document.querySelector('#upload-file');
 const canselElement = document.querySelector('#upload-cancel');
-const scaleElements = document.querySelector('.img-upload__scale');
+const scaleElement = document.querySelector('.img-upload__scale');
 const previewImg = document.querySelector('.img-upload__preview img');
 const scaleControl = document.querySelector('.scale__control--value');
-const effectElements = document.querySelector('.effects__list');
+const effectElement = document.querySelector('.effects__list');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectValueElement = document.querySelector('.effect-level__value');
 const form = document.querySelector('.img-upload__form');
@@ -41,7 +41,7 @@ const onAddPictureClick = (evt) => {
   const matches = FILE_TYPES.some((el) => evt.target.files[0].name.toLowerCase().endsWith(el));
   if(matches){
     document.querySelector('.img-upload__overlay .img-upload__preview img').src = URL.createObjectURL(evt.target.files[0]);
-    effectElements.querySelectorAll('.effects__preview').forEach((el) => {
+    effectElement.querySelectorAll('.effects__preview').forEach((el) => {
       el.style.backgroundImage = `url(${URL.createObjectURL(evt.target.files[0])})`;
     });
     document.querySelector('.img-upload__overlay').classList.remove('hidden');
@@ -69,15 +69,15 @@ const onLoadPictureKeydown = (evt) => {
 };
 
 const onScalClick = (evt) => {
-  const scaleElement = evt.target.classList;
+  const currentScaleElement = evt.target.classList;
   switch(true){
-    case scaleElement.contains('scale__control--smaller'):
+    case currentScaleElement.contains('scale__control--smaller'):
       if(parseInt(scaleControl.value, numberSystem ) > minSlider) {
         scaleControl.value = `${(parseInt(scaleControl.value, numberSystem ) - stepSlider)}%`;
         previewImg.style.transform = `scale(${parseInt(scaleControl.value, numberSystem )/percent})`;
       }
       break;
-    case scaleElement.contains('scale__control--bigger'):
+    case currentScaleElement.contains('scale__control--bigger'):
       if(parseInt(scaleControl.value, numberSystem ) < maxSlider) {
         scaleControl.value = `${(parseInt(scaleControl.value, numberSystem ) + stepSlider)}%`;
         previewImg.style.transform = `scale(${parseInt(scaleControl.value, numberSystem )/percent})`;
@@ -118,29 +118,29 @@ const updateUISlider = (min, max, step, effect) => {
 };
 
 const onEffectClick = (evt) => {
-  const effectElement = evt.target.classList;
+  const currentEffectElement = evt.target.classList;
   switch(true){
-    case effectElement.contains('effects__preview--none'):
+    case currentEffectElement.contains('effects__preview--none'):
       previewImg.className = '';
       resetEffects();
       break;
-    case effectElement.contains('effects__preview--chrome'):
+    case currentEffectElement.contains('effects__preview--chrome'):
       previewImg.className = 'effects__preview--chrome';
       updateUISlider(effectMinCommonFilter, effectMaxCommonFilter, effectStepCommonFilter, 'grayscale');
       break;
-    case effectElement.contains('effects__preview--sepia'):
+    case currentEffectElement.contains('effects__preview--sepia'):
       previewImg.className = 'effects__preview--sepia';
       updateUISlider(effectMinCommonFilter, effectMaxCommonFilter, effectStepCommonFilter, 'sepia');
       break;
-    case effectElement.contains('effects__preview--marvin'):
+    case currentEffectElement.contains('effects__preview--marvin'):
       previewImg.className = 'effects__preview--marvin';
       updateUISlider(effectMinCommonFilter, effectMaxInvertFilter, effectStepInvertFilter, 'invert');
       break;
-    case effectElement.contains('effects__preview--phobos'):
+    case currentEffectElement.contains('effects__preview--phobos'):
       previewImg.className = 'effects__preview--phobos';
       updateUISlider(effectMinCommonFilter, effectMaxPhobosFilter, effectStepCommonFilter, 'blur');
       break;
-    case effectElement.contains('effects__preview--heat'):
+    case currentEffectElement.contains('effects__preview--heat'):
       previewImg.className = 'effects__preview--heat';
       updateUISlider(effectMinHeatFilter, effectMaxPhobosFilter, effectStepCommonFilter, 'brightness');
       break;
@@ -153,8 +153,8 @@ const onLoadPhoto = () => {
   inputFile.addEventListener('change', onAddPictureClick);
   canselElement.addEventListener('click', onCanselClick);
   document.addEventListener('keydown',  onLoadPictureKeydown);
-  scaleElements.addEventListener('click',  onScalClick);
-  effectElements.addEventListener('click',  onEffectClick);
+  scaleElement.addEventListener('click',  onScalClick);
+  effectElement.addEventListener('click',  onEffectClick);
 };
 
 export { onLoadPhoto };

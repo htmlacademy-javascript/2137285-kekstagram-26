@@ -362,10 +362,11 @@ main {
           transform: scale(1.1);
 }
 
+/*
 .img-upload__input:focus + .img-upload__label {
   outline: auto 5px highlight;
 }
-
+*/
 
 /* Окно для редактирования изображения
    ========================================================================== */
@@ -758,6 +759,10 @@ main {
   background-color: rgba(255, 231, 82, 0.4);
 }
 
+.img-upload__submit:disabled {
+  background-color: rgba(255, 231, 82, 0.4);
+}
+
 .img-upload__submit:active {
   -webkit-transform: translateY(1px);
       -ms-transform: translateY(1px);
@@ -767,6 +772,7 @@ main {
 .img-upload__submit:disabled,
 .img-upload__submit--disabled {
   opacity: 0.3;
+  transform: none;
 }
 
 

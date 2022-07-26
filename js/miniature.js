@@ -1,6 +1,6 @@
 import { renderModal } from './modal.js';
-import {getData} from './api.js';
-import {showFilters} from './filters.js';
+import { getData } from './api.js';
+import { showFilters } from './filters.js';
 import { debounce } from './util.js';
 
 const renderPhotoElements = (photos) => {
