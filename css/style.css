@@ -362,11 +362,10 @@ main {
           transform: scale(1.1);
 }
 
-/*
-.img-upload__input:focus + .img-upload__label {
+/* .img-upload__input:focus + .img-upload__label {
   outline: auto 5px highlight;
-}
-*/
+} */
+
 
 /* Окно для редактирования изображения
    ========================================================================== */
