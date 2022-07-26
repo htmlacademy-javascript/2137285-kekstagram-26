@@ -1441,7 +1441,7 @@ main {
 
 /* Стили ерора тостера
    ========================================================================== */
-   #toast{
+   .toast{
     position:fixed;
     z-index:10 !important;
     top:0;
@@ -1459,7 +1459,7 @@ main {
     text-transform: none;
   }
   
-  #toast.show{
+  .toast.show{
     visibility:visible;
     animation:fadeInOut 5s;
   }
